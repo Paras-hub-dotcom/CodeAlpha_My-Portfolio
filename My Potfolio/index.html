@@ -1,0 +1,871 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Paras Garg • Portfolio</title>
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="preload"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript>
+      <link
+        rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+      />
+    </noscript>
+
+    <style>
+      :root {
+        --bg: #07080a;
+        --card: #0f1217cc;
+        --stroke: #1e293b;
+        --primary: #00eaff;
+        --primary-ghost: #00eaff22;
+        --text: #e6f1ff;
+        --muted: #a6b3c2;
+        --green-accent: #64ffda;
+      }
+
+      /* ===== GLOBAL STYLES ===== */
+      html {
+        scroll-behavior: smooth;
+      }
+      body {
+        background: radial-gradient(
+            1200px 800px at 120% -10%,
+            #022c3a 0%,
+            transparent 60%
+          ),
+          radial-gradient(900px 600px at -10% 110%, #1b1b47 0%, transparent 60%),
+          var(--bg);
+        color: var(--text);
+        font-family: "Poppins", system-ui, -apple-system, Segoe UI, Roboto,
+          sans-serif;
+        overflow-x: hidden;
+        line-height: 1.65;
+      }
+      .container-narrow {
+        max-width: 980px;
+      }
+      .section-pad {
+        /* Increased padding for more breathing room */
+        padding: 120px 20px;
+      }
+      .heading-underline {
+        display: inline-flex; /* Use flex for better alignment */
+        align-items: center;
+        position: relative;
+        padding-bottom: 0.75rem;
+        margin-bottom: 3rem; /* Increased margin */
+        font-size: clamp(1.75rem, 5vw, 2.25rem); /* Responsive font size */
+        font-weight: 600;
+        color: var(--text);
+      }
+      .heading-underline:after {
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: 0;
+        height: 3px;
+        width: 100%;
+        background: linear-gradient(90deg, var(--primary), transparent);
+        border-radius: 3px;
+      }
+      .heading-underline i {
+        color: var(--green-accent);
+        margin-right: 15px;
+        font-size: 0.9em; /* Relative to heading size */
+      }
+
+      /* ===== SIDE TILES ===== */
+      .side-tiles {
+        position: fixed;
+        right: 24px;
+        top: 50%;
+        transform: translateY(-50%);
+        display: grid;
+        gap: 18px;
+        z-index: 0;
+      }
+      .tile {
+        width: 110px;
+        height: 140px;
+        border-radius: 18px;
+        overflow: hidden;
+        background: linear-gradient(
+            120deg,
+            var(--primary-ghost),
+            transparent 60%
+          ),
+          #0f1220;
+        border: 1px solid #193247;
+        box-shadow: 0 10px 30px #0008, inset 0 0 30px #00eaff11;
+        animation: floatY 4.6s ease-in-out infinite;
+      }
+      .tile:nth-child(2) {
+        height: 100px;
+        animation-delay: 0.9s;
+      }
+      .tile:nth-child(3) {
+        height: 160px;
+        animation-delay: 1.6s;
+      }
+
+      /* ===== HERO SECTION ===== */
+      .hero {
+        /* Using section-pad class for consistent padding */
+        min-height: 80vh;
+        display: flex;
+        align-items: center;
+      }
+      .hero-card {
+        background: rgba(18, 30, 45, 0.8);
+        backdrop-filter: blur(10px);
+        border: 1px solid #263243;
+        border-radius: 24px;
+        padding: 40px;
+        box-shadow: 0 10px 40px #0007;
+      }
+      .badge-pill {
+        background-color: var(--primary-ghost);
+        color: var(--primary);
+        padding: 0.5rem 1rem;
+        border-radius: 999px;
+        font-size: 0.85rem;
+        font-weight: 500;
+      }
+      .hero-card .lead {
+        color: var(--muted);
+        max-width: 650px; /* Constrain line length for readability */
+      }
+      .btn-primary-soft {
+        background-color: var(--primary);
+        color: #001018;
+        border: none;
+        font-weight: 700;
+        border-radius: 12px;
+        padding: 0.9rem 1.5rem;
+        transition: 0.25s transform, 0.25s box-shadow;
+      }
+      .btn-primary-soft:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 24px #00eaff55;
+        color: #001018;
+      }
+      .btn-outline-light {
+        border-color: #2b445b;
+        border-radius: 12px;
+        padding: 0.9rem 1.5rem;
+        font-weight: 500;
+        transition: background-color 0.3s, border-color 0.3s;
+      }
+      .btn-outline-light:hover {
+        background-color: var(--primary-ghost);
+        border-color: var(--primary);
+      }
+
+      /* ===== ABOUT SECTION ===== */
+      #about {
+        position: relative;
+        overflow: hidden;
+        background: linear-gradient(120deg, #0f2027, #203a43, #2c5364);
+      }
+      #about::before {
+        content: "";
+        position: absolute;
+        top: -50%;
+        left: -50%;
+        width: 200%;
+        height: 200%;
+        background: conic-gradient(
+          from 180deg,
+          #00eaff33,
+          #0088ff22,
+          #ff00ff22,
+          #00eaff33
+        );
+        animation: rotateBG 12s linear infinite;
+        z-index: 0;
+      }
+      #about .container {
+        position: relative;
+        z-index: 2;
+      }
+      #about .display-6 {
+        font-size: clamp(1.75rem, 4vw, 2.5rem);
+        font-weight: 700;
+        color: var(--text);
+        margin-bottom: 3rem;
+        line-height: 1.3;
+        min-height: 100px; /* Give space for retyping text */
+      }
+      .text-green {
+        color: var(--green-accent);
+      }
+      .about-grid-container {
+        display: grid;
+        grid-template-columns: 1fr; /* Changed to single column */
+        max-width: 720px; /* Constrain width for better readability */
+        margin: 0 auto; /* Center the single column */
+      }
+      .about-text-column p {
+        color: var(--muted);
+        margin-bottom: 1.25rem;
+      }
+      .about-text-column .subtitle {
+        font-weight: 500;
+        color: var(--text);
+        margin-bottom: 1.5rem;
+      }
+      .info-card {
+        background-color: rgba(17, 34, 64, 0.7);
+        backdrop-filter: blur(5px);
+        border: 1px solid #233554;
+        border-radius: 8px;
+        padding: 1.5rem;
+        width: 100%;
+      }
+      .info-card h5 {
+        color: var(--text);
+        font-weight: 600;
+        margin-bottom: 0.75rem;
+      }
+      .info-card p {
+        color: var(--muted);
+        margin-bottom: 0;
+      }
+      .social-links {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+      .social-links a i {
+        font-size: 1.5rem;
+        color: var(--text);
+        transition: color 0.3s ease, transform 0.3s ease;
+      }
+      .social-links a:hover i {
+        color: var(--green-accent);
+        transform: translateY(-3px);
+      }
+      .social-links .btn {
+        color: var(--green-accent);
+        background-color: transparent;
+        border: 1px solid var(--green-accent);
+        border-radius: 8px;
+        padding: 0.75rem 1.5rem;
+        text-decoration: none;
+        font-weight: 500;
+        transition: background-color 0.3s ease;
+      }
+      .social-links .btn:hover {
+        background-color: rgba(100, 255, 218, 0.1);
+      }
+
+      /* ===== PROJECTS SECTION ===== */
+      .project-card {
+        background: linear-gradient(180deg, #101520ee, #0c1018ee);
+        border: 1px solid #223042;
+        border-radius: 18px;
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease,
+          border-color 0.3s ease;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+      }
+      .project-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 16px 50px #000a;
+        border-color: #2a4a63;
+      }
+      .project-media {
+        position: relative;
+        height: 240px;
+        overflow: hidden;
+        background: #0a0f16;
+      }
+      .project-media img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.5s ease;
+      }
+      .project-card:hover .project-media img {
+        transform: scale(1.08);
+      }
+      .project-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(0, 234, 255, 0.25);
+        backdrop-filter: blur(4px);
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        color: #fff;
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.35s ease, transform 0.35s ease;
+        text-align: center;
+        padding: 15px;
+      }
+      .project-card:hover .project-overlay {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .project-overlay h5 {
+        margin-bottom: 0.75rem;
+        font-size: 1.2rem;
+      }
+      .project-overlay .chip {
+        font-size: 0.8rem;
+        padding: 0.25rem 0.6rem;
+        border-radius: 999px;
+        color: var(--primary);
+        border: 1px solid #29576a;
+        background: #07262e;
+      }
+      .project-body {
+        padding: 24px;
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+      }
+      .btn-view {
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: 600;
+        position: relative;
+      }
+      .btn-view::after {
+        content: "→";
+        margin-left: 8px;
+        transition: margin-left 0.3s ease;
+      }
+      .btn-view:hover::after {
+        margin-left: 14px;
+      }
+
+      /* ===== CONTACT SECTION ===== */
+      .form-control {
+        background: #0c1118;
+        border: 1px solid #243245;
+        color: var(--text);
+        padding: 1rem;
+        border-radius: 12px;
+      }
+      .form-control:focus {
+        border-color: var(--primary);
+        box-shadow: 0 0 0 0.2rem var(--primary-ghost);
+        background: #0c1118;
+        color: var(--text);
+      }
+      /* Custom Bootstrap validation styles */
+      .form-control.is-invalid,
+      .was-validated .form-control:invalid {
+        border-color: #dc3545;
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' width='12' height='12' fill='none' stroke='%23dc3545'%3e%3ccircle cx='6' cy='6' r='4.5'/%3e%3cpath stroke-linejoin='round' d='M5.8 3.6h.4L6 6.5z'/%3e%3ccircle cx='6' cy='8.2' r='.6' fill='%23dc3545' stroke='none'/%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right calc(0.375em + 0.1875rem) center;
+        background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+      }
+      .form-control.is-valid,
+      .was-validated .form-control:valid {
+        border-color: #198754;
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8'%3e%3cpath fill='%23198754' d='M2.3 6.73L.6 4.53c-.4-1.04.46-1.4 1.1-.8l1.1 1.4 3.4-3.8c.6-.63 1.6-.27 1.2.7l-4 4.6c-.43.5-.8.4-1.1.1z'/%3e%3c/svg%3e");
+        background-repeat: no-repeat;
+        background-position: right calc(0.375em + 0.1875rem) center;
+        background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+      }
+      .btn-send {
+        background: var(--primary);
+        color: #001018;
+        border: none;
+        font-weight: 700;
+        border-radius: 12px;
+        padding: 0.9rem 1.5rem;
+        transition: 0.25s transform, 0.25s box-shadow;
+      }
+      .btn-send:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 24px #00eaff55;
+      }
+
+      /* ===== FOOTER ===== */
+      footer {
+        color: #91a1b4;
+        border-top: 1px solid #1b2738;
+        padding: 40px 0;
+        text-align: center;
+        margin-top: 60px;
+        font-size: 0.95rem;
+      }
+
+      /* ===== UTILITIES & ANIMATIONS ===== */
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: opacity 0.8s ease, transform 0.8s ease;
+      }
+      .reveal.show {
+        opacity: 1;
+        transform: none;
+      }
+      .typewrite {
+        border-right: 2px solid var(--primary);
+        white-space: nowrap;
+        overflow: hidden;
+        display: inline-block; /* Ensures border-right works correctly */
+        vertical-align: bottom; /* Aligns cursor nicely with text */
+      }
+
+      /* ===== KEYFRAMES ===== */
+      @keyframes floatY {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-18px);
+        }
+      }
+      @keyframes rotateBG {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      /* ===== RESPONSIVE DESIGN ===== */
+      @media (max-width: 991px) {
+        .side-tiles {
+          display: none;
+        }
+        .section-pad {
+          padding: 100px 20px;
+        }
+      }
+      @media (max-width: 576px) {
+        .section-pad {
+          padding: 80px 16px;
+        }
+        .hero-card {
+          padding: 32px 24px;
+        }
+        .btn-primary-soft,
+        .btn-outline-light,
+        .btn-send {
+          width: 100%;
+          text-align: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="side-tiles" aria-hidden="true">
+      <div class="tile"></div>
+      <div class="tile"></div>
+      <div class="tile"></div>
+    </div>
+
+    <header class="hero section-pad">
+      <div class="container container-narrow">
+        <div class="hero-card reveal">
+          <div class="d-flex flex-wrap align-items-center gap-2 mb-4">
+            <span class="badge-pill">Web Developer</span>
+          </div>
+          <h1
+            class="display-4 fw-bold mb-3 typewrite"
+            data-type='["Hi, I&apos;m Paras Garg 👋","I build modern web UIs.","I love animations & clean UX."]'
+            data-speed="42"
+          ></h1>
+          <p class="lead mb-4">
+            Crafting responsive experiences with <b>HTML5</b>, <b>CSS3</b>,
+            <b>JavaScript</b>, and <b>Bootstrap</b>. Smooth scroll, subtle
+            motion, and accessible design — all in one place.
+          </p>
+          <div class="d-flex flex-wrap gap-3 mt-4">
+            <a href="#projects" class="btn btn-primary-soft">View Projects</a>
+            <a href="#contact" class="btn btn-outline-light">Contact Me</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <section id="about" class="section-pad">
+      <div class="container">
+        <h2 class="heading-underline reveal">
+          <i class="bi bi-person-circle"></i>About Me
+        </h2>
+
+        <div class="reveal">
+          <h3 class="display-6">
+            I'm a software developer specialized on
+            <span
+              class="text-green typewrite"
+              data-type='["Web Applications.", "Responsive UIs.", "Modern Front-ends."]'
+              data-speed="50"
+            ></span>
+          </h3>
+        </div>
+
+        <div class="about-grid-container reveal">
+          <div class="about-text-column">
+            <h4 class="fw-bold">Paras Garg</h4>
+            <p class="subtitle">Full-stack Web Developer</p>
+            <p>
+              I'm an experienced software engineer who constantly seeks out
+              innovative solutions to everyday problems.
+            </p>
+            <p>
+              After 4 years in this industry I have worked with multiple
+              front-end and back-end technologies.
+            </p>
+
+            <div class="info-card mb-4">
+              <h5>Languages</h5>
+              <p>Hindi <strong></strong> &nbsp;|&nbsp; English</p>
+            </div>
+
+            <div class="social-links mt-4">
+              <a
+                href="https://github.com/Paras-hub-dotcom"
+                target="_blank"
+                title="GitHub"
+              >
+                <i class="bi bi-github"></i>
+              </a>
+              <a
+                href="https://www.linkedin.com/in/paras-garg-5b2424297/"
+                target="_blank"
+                title="LinkedIn"
+              >
+                <i class="bi bi-linkedin"></i>
+              </a>
+              <a href="Paras_Garg_Resume.pdf" download class="btn ms-2">
+                <i class="bi bi-download me-2"></i>Download CV
+              </a>
+              <a href="#contact" class="btn ms-2">Contact Me</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="projects" class="section-pad">
+      <div class="container container-narrow">
+        <h2 class="heading-underline reveal">Projects</h2>
+        <div class="row g-4 g-lg-5">
+          <div class="col-md-6 reveal">
+            <div class="project-card">
+              <div class="project-media">
+                <img
+                  src="Images/Travelagency.webp"
+                  alt="Travel Agency Website"
+                  width="600"
+                  height="400"
+                  loading="lazy"
+                  onerror="this.onerror=null;this.src='https://placehold.co/600x400/0f2027/e6f1ff?text=Travel+Agency';"
+                />
+                <div class="project-overlay">
+                  <h5>🌍 Travel Agency Website</h5>
+                  <div class="d-flex gap-2 flex-wrap mt-2">
+                    <span class="chip">HTML5</span>
+                    <span class="chip">CSS3</span>
+                    <span class="chip">JS</span>
+                    <span class="chip">Bootstrap</span>
+                  </div>
+                </div>
+              </div>
+              <div class="project-body">
+                <p class="text-muted">
+                  Responsive booking UI with hover states and animations.
+                </p>
+                <div class="mt-auto">
+                  <a
+                    href="projects/firstflight-travels-agency/firstflight-travels-main/index.html"
+                    target="_blank"
+                    class="btn-view"
+                  >
+                    View Project
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 reveal">
+            <div class="project-card">
+              <div class="project-media">
+                <img
+                  src="Images/signinimg.jpeg"
+                  alt="Sign In / Sign Up System"
+                  width="600"
+                  height="400"
+                  loading="lazy"
+                  onerror="this.onerror=null;this.src='https://placehold.co/600x400/0f2027/e6f1ff?text=Auth+UI';"
+                />
+                <div class="project-overlay">
+                  <h5>🔐 Sign In / Sign Up</h5>
+                  <div class="d-flex gap-2 flex-wrap mt-2">
+                    <span class="chip">HTML5</span>
+                    <span class="chip">CSS3</span>
+                    <span class="chip">JS</span>
+                    <span class="chip">Bootstrap</span>
+                  </div>
+                </div>
+              </div>
+              <div class="project-body">
+                <p class="text-muted">
+                  Auth UI with validations, transitions, and accessibility.
+                </p>
+                <div class="mt-auto">
+                  <a
+                    href="projects/Responsive Sigup form/signin.html"
+                    target="_blank"
+                    class="btn-view"
+                  >
+                    View Project
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contact" class="section-pad">
+      <div class="container container-narrow">
+        <h2 class="heading-underline reveal">Contact Me</h2>
+        <form id="contactForm" class="reveal" novalidate>
+          <div class="row g-4">
+            <div class="col-md-6">
+              <label class="form-label">Full Name</label>
+              <input
+                id="name"
+                type="text"
+                class="form-control"
+                placeholder="Enter your full name"
+                required
+                minlength="3"
+              />
+              <div class="invalid-feedback">
+                Please enter at least 3 characters.
+              </div>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Email</label>
+              <input
+                id="email"
+                type="email"
+                class="form-control"
+                placeholder="you@example.com"
+                required
+              />
+              <div class="invalid-feedback">Enter a valid email.</div>
+            </div>
+            <div class="col-12">
+              <label class="form-label">Subject</label>
+              <input
+                id="subject"
+                type="text"
+                class="form-control"
+                placeholder="What is this about?"
+                required
+                minlength="3"
+              />
+              <div class="invalid-feedback">
+                Subject must be at least 3 characters.
+              </div>
+            </div>
+            <div class="col-12">
+              <label class="form-label">Message</label>
+              <textarea
+                id="message"
+                class="form-control"
+                rows="5"
+                placeholder="Write your message…"
+                required
+                minlength="10"
+              ></textarea>
+              <div class="invalid-feedback">
+                Message must be at least 10 characters.
+              </div>
+            </div>
+            <div class="col-12 pt-2">
+              <button class="btn btn-send" type="submit">Send Message</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <footer>
+      © 2025 Paras Garg • MIMIT (CSE) • Built with ❤️ using HTML • CSS • JS •
+      Bootstrap
+    </footer>
+
+    <div id="customAlert" class="modal fade" tabindex="-1">
+      <div class="modal-dialog modal-dialog-centered">
+        <div
+          class="modal-content"
+          style="background-color: #112240; border: 1px solid #233554"
+        >
+          <div class="modal-header" style="border-bottom: 1px solid #233554">
+            <h5 class="modal-title" style="color: var(--text)">Notification</h5>
+            <button
+              type="button"
+              class="btn-close btn-close-white"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div
+            class="modal-body"
+            style="color: var(--muted)"
+            id="customAlertMessage"
+          ></div>
+          <div class="modal-footer" style="border-top: 1px solid #233554">
+            <button
+              type="button"
+              class="btn btn-primary-soft"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+      // Custom Alert Function
+      const customAlert = new bootstrap.Modal(
+        document.getElementById("customAlert")
+      );
+      const showAlert = (message) => {
+        document.getElementById("customAlertMessage").textContent = message;
+        customAlert.show();
+      };
+
+      // Reveal on Scroll
+      const revealEls = document.querySelectorAll(".reveal");
+      const ro = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((en) => {
+            if (en.isIntersecting) {
+              en.target.classList.add("show");
+              ro.unobserve(en.target);
+            }
+          });
+        },
+        { threshold: 0.1 }
+      );
+      revealEls.forEach((el) => ro.observe(el));
+
+      // Typewriter Effect
+      const typeEls = document.querySelectorAll(".typewrite");
+      function typeSequence(el, phrases, speed) {
+        let i = 0,
+          j = 0,
+          deleting = false;
+        const tick = () => {
+          const full = phrases[i];
+          if (!deleting) {
+            el.textContent = full.slice(0, j + 1);
+            j++;
+            if (j === full.length) {
+              deleting = true;
+              return setTimeout(tick, 1400); // Pause longer at the end
+            }
+          } else {
+            el.textContent = full.slice(0, j - 1);
+            j--;
+            if (j === 0) {
+              deleting = false;
+              i = (i + 1) % phrases.length;
+            }
+          }
+          setTimeout(tick, deleting ? speed * 0.6 : speed);
+        };
+        tick();
+      }
+      const tor = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((en) => {
+            if (en.isIntersecting) {
+              const el = en.target;
+              if (!el.dataset.started) {
+                el.dataset.started = "1";
+                const phrases = JSON.parse(el.getAttribute("data-type"));
+                const speed = Number(el.getAttribute("data-speed")) || 40;
+                typeSequence(el, phrases, speed);
+              }
+            }
+          });
+        },
+        { threshold: 0.5 }
+      );
+      typeEls.forEach((el) => tor.observe(el));
+
+      // Contact Form Validation with real-time feedback
+      (function () {
+        "use strict";
+        const form = document.getElementById("contactForm");
+        const allControls = form.querySelectorAll(".form-control");
+
+        // Add event listeners for real-time validation feedback
+        allControls.forEach((input) => {
+          input.addEventListener(
+            "input",
+            () => {
+              if (input.checkValidity()) {
+                input.classList.remove("is-invalid");
+                input.classList.add("is-valid");
+              } else {
+                input.classList.remove("is-valid");
+                input.classList.add("is-invalid");
+              }
+            },
+            false
+          );
+        });
+
+        // Handle form submission
+        form.addEventListener(
+          "submit",
+          function (event) {
+            event.preventDefault();
+            event.stopPropagation();
+
+            if (form.checkValidity()) {
+              showAlert("✅ Message sent successfully!");
+              form.reset();
+              form.classList.remove("was-validated");
+              allControls.forEach((input) => {
+                input.classList.remove("is-valid", "is-invalid");
+              });
+            } else {
+              // Apply Bootstrap's validation styles to all fields
+              form.classList.add("was-validated");
+            }
+          },
+          false
+        );
+      })();
+    </script>
+  </body>
+</html>
